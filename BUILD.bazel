@@ -5724,7 +5724,11 @@ xnnpack_cc_library(
         ":debug_build": [],
         "//conditions:default": xnnpack_min_size_copts(),
     }) + select({
-        ":xnn_enable_hmp_explicit_false": ["-DXNN_MAX_UARCH_TYPES=1"],
+        ":xnn_enable_hmp_explicit_false": [
+            "-DXNN_MAX_UARCH_TYPES=1",
+            "-Wno-unused",
+            "-Wno-implicit-function-declaration",
+        ],
         "//conditions:default": [
             "-Wno-unused",
             "-Wno-implicit-function-declaration",
