@@ -274,9 +274,11 @@ SET(LOGGING_SRCS
   src/log.c)
 
 SET(XNNPACK_SRCS
+  src/avgpool-config.c
   src/binary-elementwise-config.c
   src/init.c
   src/params.c
+  src/pavgpool-config.c
   src/transpose-config.c
   src/unary-elementwise-config.c
   src/x8-lut-config.c
@@ -3204,6 +3206,7 @@ IF(XNNPACK_BUILD_BENCHMARKS)
       models/fp32-mobilenet-v2.cc
       models/fp32-mobilenet-v3-large.cc
       models/fp32-mobilenet-v3-small.cc
+      models/fp32-mobilenet-v3-small-fused.cc
       models/fp32-sparse-mobilenet-v1.cc
       models/fp32-sparse-mobilenet-v2.cc
       models/fp32-sparse-mobilenet-v3-large.cc
@@ -3750,6 +3753,11 @@ IF(XNNPACK_BUILD_BENCHMARKS)
   TARGET_INCLUDE_DIRECTORIES(x24-transpose-bench PRIVATE . include src)
   TARGET_LINK_LIBRARIES(x24-transpose-bench PRIVATE benchmark pthreadpool)
   TARGET_LINK_LIBRARIES(x24-transpose-bench PRIVATE bench-utils hardware-config logging microkernels-all microparams-init)
+
+  ADD_EXECUTABLE(x16-packw-bench bench/x16-packw.cc)
+  TARGET_INCLUDE_DIRECTORIES(x16-packw-bench PRIVATE . include src)
+  TARGET_LINK_LIBRARIES(x16-packw-bench PRIVATE benchmark pthreadpool)
+  TARGET_LINK_LIBRARIES(x16-packw-bench PRIVATE bench-utils hardware-config logging microkernels-all packing)
 
   ADD_EXECUTABLE(x32-packw-bench bench/x32-packw.cc)
   TARGET_INCLUDE_DIRECTORIES(x32-packw-bench PRIVATE . include src)

@@ -2409,7 +2409,9 @@ xnnpack_cc_library(
 xnnpack_cc_library(
     name = "microkernel_configs",
     srcs = [
+        "src/avgpool-config.c",
         "src/binary-elementwise-config.c",
+        "src/pavgpool-config.c",
         "src/transpose-config.c",
         "src/unary-elementwise-config.c",
         "src/x8-lut-config.c",
@@ -6530,6 +6532,19 @@ xnnpack_benchmark(
     srcs = [
         "bench/bgemm.h",
         "bench/x32-packw.cc",
+    ],
+    deps = MICROKERNEL_BENCHMARK_DEPS + [
+        ":allocator",
+        ":math",
+        ":packing",
+    ],
+)
+
+xnnpack_benchmark(
+    name = "x16_packw_bench",
+    srcs = [
+        "bench/bgemm.h",
+        "bench/x16-packw.cc",
     ],
     deps = MICROKERNEL_BENCHMARK_DEPS + [
         ":allocator",
