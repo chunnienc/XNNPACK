@@ -5728,13 +5728,8 @@ xnnpack_cc_library(
     }) + select({
         ":xnn_enable_hmp_explicit_false": [
             "-DXNN_MAX_UARCH_TYPES=1",
-            "-Wno-unused",
-            "-Wno-implicit-function-declaration",
         ],
-        "//conditions:default": [
-            "-Wno-unused",
-            "-Wno-implicit-function-declaration",
-        ],
+        "//conditions:default": [],
     }),
     defines = [
         "XNN_NO_QS8_OPERATORS",
@@ -5743,6 +5738,7 @@ xnnpack_cc_library(
         "XNN_NO_U8_OPERATORS",
         "XNN_NO_X8_OPERATORS",
         "XNN_NO_NCHW_OPERATORS",
+        "XNN_LOG_TO_STDIO=0",
     ],
     gcc_copts = xnnpack_gcc_std_copts(),
     msvc_copts = xnnpack_msvc_std_copts(),
