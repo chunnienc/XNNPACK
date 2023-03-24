@@ -5730,7 +5730,9 @@ xnnpack_cc_library(
             "-DXNN_MAX_UARCH_TYPES=1",
         ],
         "//conditions:default": [],
-    }),
+    }) + [
+        "-DXNN_LOG_TO_STDIO=0",
+    ],
     defines = [
         "XNN_NO_QS8_OPERATORS",
         "XNN_NO_QU8_OPERATORS",
@@ -5738,7 +5740,6 @@ xnnpack_cc_library(
         "XNN_NO_U8_OPERATORS",
         "XNN_NO_X8_OPERATORS",
         "XNN_NO_NCHW_OPERATORS",
-        "XNN_LOG_TO_STDIO=0",
     ],
     gcc_copts = xnnpack_gcc_std_copts(),
     msvc_copts = xnnpack_msvc_std_copts(),
